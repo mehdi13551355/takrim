@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Btitr';
+    src:
+        url('pixelboy-BTitrBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Bfar';
+    src:
+        url('pixelboy-BFarnaz.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
