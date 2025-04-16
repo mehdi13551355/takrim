@@ -31,8 +31,8 @@ app.get("/",function(req,res){
 });
 
 // صفحه ثبت نام
-app.get("/rejester.ejs",function(req,res){
-    res.render("rejester.ejs");
+app.get("/register.ejs",function(req,res){
+    res.render("register.ejs");
 });
 
 // ثبت نام

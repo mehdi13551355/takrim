@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="fa">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>فرم ثبت نام </title>
     <style>
-
         @font-face {
             font-family: 'Vazir';
             src: url('fonts/BYekan.woff2') format('woff2'),
-                 url('fonts/BYekan.woff') format('woff');
-        } 
+                url('fonts/BYekan.woff') format('woff');
+        }
 
         * {
             font-family: "Vazir", Tahoma, sans-serif;
-         }  
+        }
+
         body {
-            
+
             background: linear-gradient(135deg, #53bac2, #84fab0);
             display: flex;
             justify-content: center;
@@ -25,6 +26,7 @@
             margin: 0;
             direction: rtl;
         }
+
         .register-container {
             width: 90%;
             max-width: 400px;
@@ -33,30 +35,36 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+
         .register-container h2 {
             text-align: center;
             margin-bottom: 20px;
             color: #333;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
             color: #555;
         }
+
         .form-group input {
             width: 90%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         .form-group input:focus {
             border-color: #8fd3f4;
             outline: none;
         }
+
         .register-button {
             width: 90%;
             padding: 10px;
@@ -68,49 +76,109 @@
             cursor: pointer;
             transition: background 0.3s;
         }
+
         .register-button:hover {
             background: #84fab0;
         }
+
         .register-footer {
             text-align: center;
             margin-top: 10px;
             color: #555;
         }
+
         .register-footer a {
             color: #8fd3f4;
             text-decoration: none;
         }
+
         .register-footer a:hover {
             text-decoration: underline;
         }
+
+        .error {
+            border: 1px solid red;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+
         @media (max-width: 768px) {
             .register-container {
                 padding: 15px;
             }
+
             .register-button {
                 font-size: 0.9rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="register-container">
         <h2>فرم ورود</h2>
-        <form autocomplete="off">
+        <form id="login" action="/login" method="post" autocomplete="off">
             <div class="form-group">
-                <label for="fullname">شناسه ملی:</label>
-                <input type="text" id="fullname" placeholder=" شناسه ملی خود را وارد کنید" >
+                <label for="meli">شناسه ملی:</label>
+                <input type="text" id="meli" placeholder=" شناسه ملی خود را وارد کنید" required>
+                <span id="meliError" class="error-message"></span>
             </div>
             <div class="form-group">
                 <label for="password">رمز عبور:</label>
-                <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
+                <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید"required>
+                <span id="passError" class="error-message"></span>
             </div>
             <button type="submit" class="register-button">ورود</button>
             <div class="register-footer">
-                <p>حساب کاربری دارید؟ <a href="/rejester.ejs">ثبت نام </a></p>
+                <p>حساب کاربری دارید؟ <a href="/register.ejs">ثبت نام </a></p>
                 <p>رمز عبور را فراموش کردید؟ <a href="#"> بازیابی رمز عبور</a></p>
             </div>
         </form>
     </div>
+
+    <script>
+        const form = document.getElementById("login");
+      
+        form.addEventListener("submit", (e) => {
+          e.preventDefault(); // جلوگیری از ارسال فرم تا وقتی بررسی کنیم
+      
+          // گرفتن مقادیر
+          const meli = document.getElementById("meli");
+          const password = document.getElementById("password");
+          const meliError = document.getElementById("meliError");
+          const passError = document.getElementById("passError");
+      
+          // پاک‌سازی قبلی
+          meli.classList.remove("error");
+          password.classList.remove("error");
+          meliError.textContent = "";
+          passError.textContent = "";
+      
+          let isValid = true;
+      
+          // بررسی ایمیل
+          if (meli.value.length ==10) {
+            meli.classList.add("error");
+            meliError.textContent = "شناسه ملی معتبر نیست!";
+            isValid = false;
+          }
+      
+          // بررسی رمز عبور
+          if (password.value.length < 6) {
+            password.classList.add("error");
+            passError.textContent = "رمز باید حداقل ۶ کاراکتر باشد.";
+            isValid = false;
+          }
+      
+          if (isValid) {
+            isValid = true;
+            form.submit(); // اگر همه چی اوکی بود، فرم ارسال میشه
+          }
+        });
+      </script>
 </body>
+
 </html>
