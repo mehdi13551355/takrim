@@ -54,15 +54,15 @@ app.get("/login.ejs",function(req,res){
 
 // لاگین
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  // const { username, password } = req.body;
+  // const user = await User.findOne({ username });
 
-  if (user && await bcrypt.compare(password, user.password)) {
-    req.session.user = user.username;
-    res.redirect('/main');
-  } else {
-    res.send('Login Failed');
-  }
+  // if (user && await bcrypt.compare(password, user.password)) {
+  //   req.session.user = user.username;
+   res.redirect('/main');
+  // } else {
+    // res.send('Login Failed');
+  // }
 });
 
 // Middleware چک کردن Session
@@ -72,7 +72,7 @@ function isAuthenticated(req, res, next) {
 }
 
 // صفحه 
-app.get('/main', isAuthenticated, (req, res) => {
+app.get('/main', (req, res) => {
     res.render("main.ejs");
 });
 

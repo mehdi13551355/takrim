@@ -94,9 +94,9 @@
 
         .image-container {
             position: relative;
-            width: 1050px;
-            height: 250px;
-            margin: 10px auto;
+            width: 100%;
+            height: 100%;
+            margin: 0px auto;
             overflow: hidden;
             align-items: center;
             border-radius: 20px;
@@ -119,17 +119,12 @@
         <div class="sidebar">
             <ul>
                 <li><a href="#">رهگیری گواهی عضویت وخدمات</a></li>
-                <li><a href="#"> ارتباط گیری با کارشنان</a></li>
+                <li><a href="#"> ارتباط گیری با کارشناس</a></li>
                 <li><a href="#">نوبت گیری حضوری</a></li>
                 <li><a href="#">درباره ما</a></li>
             </ul>
         </div>
         <main>
-            <div>
-                <h2 id="title">خوش آمدید</h2>
-                <h2 id="title">لطفادر صورتی که قبلا ثبت‌نام کردید<a href="/login.ejs" id="login">وارد سامانه </a>شوید </h2>
-                <h2 id="title">در غیر این صورت در <a href="/rejester.ejs" id=" rejes">سامانه ثبت نام </a>کنید </h2>
-            </div>
             <div class="image-container">
                 <img id="mainImage1" src="images/gol1.png" alt="تصویر نمونه">
                 <img id="mainImage2" src="images/gol2.png" alt="تصویر نمونه">
@@ -153,7 +148,7 @@
                 });
             }
             // نمایش تصویر اول
-            // $(images[0]).show();
+            $(images[0]).show();
 
             // تغییر تصاویر هر 3 ثانیه
             setInterval(showNextImage, 3000);

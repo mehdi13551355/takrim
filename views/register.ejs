@@ -83,6 +83,15 @@
         .register-footer a:hover {
             text-decoration: underline;
         }
+
+        .error {
+            border: 1px solid red;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
         @media (max-width: 768px) {
             .register-container {
                 padding: 15px;
@@ -92,32 +101,107 @@
             }
         }
     </style>
-</head>
-<body>
-    <div class="register-container">
-        <h2>فرم ثبت‌نام</h2>
-        <form autocomplete="off">
-            <div class="form-group">
-                <label for="fullname">شناسه ملی:</label>
-                <input type="text" id="fullname" placeholder=" شناسه ملی خود را وارد کنید" >
-            </div>
-            <div class="form-group">
-                <label for="email">ایمیل:</label>
-                <input type="email" id="email" placeholder="ایمیل خود را وارد کنید" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label for="password">رمز عبور:</label>
-                <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
-            </div>
-            <div class="form-group">
-                <label for="passwordcom">تکرار رمز عبور:</label>
-                <input type="password" id="passwordcom" placeholder="تلفن همراه خود را وارد کنید">
-            </div>
-            <button type="submit" class="register-button">ثبت‌نام</button>
-            <div class="register-footer">
-                <p>حساب کاربری دارید؟ <a href="/login.ejs">وارد شوید</a></p>
-            </div>
-        </form>
-    </div>
+    </head>
+    
+    <body>
+        <div class="register-container">
+            <h2>فرم ثبت‌نام</h2>
+            <form autocomplete="off">
+                <div class="form-group">
+                    <label for="fullname">شناسه ملی:</label>
+                    <input type="text" id="fullname" placeholder=" شناسه ملی خود را وارد کنید">
+                    <span id="melierror" class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">ایمیل:</label>
+                    <input type="email" id="email" placeholder="ایمیل خود را وارد کنید" autocomplete="off">
+                    <span id="emailerror" class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">رمز عبور:</label>
+                    <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
+                    <span id="passerror" class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="passwordcom">تکرار رمز عبور:</label>
+                    <input type="password" id="passwordcom" placeholder="تلفن همراه خود را وارد کنید">
+                    <span id="passerrorcom" class="error-message"></span>
+                </div>
+                <button type="submit" class="register-button">ثبت‌نام</button>
+                <div class="register-footer">
+                    <p>حساب کاربری دارید؟ <a href="/login.ejs">وارد شوید</a></p>
+                </div>
+            </form>
+        </div>
+        <script>
+            function validateNationalCode(code) {
+                // بررسی طول کد و عددی بودن تمام کاراکترها
+                if (code.length !== 10 || !/^\d{10}$/.test(code)) {
+                    return false;
+                }
+
+                // بررسی یکسان نبودن تمام ارقام
+                const allDigitsSame = new Set(code.split('')).size === 1;
+                if (allDigitsSame) {
+                    return false;
+                }
+
+                // محاسبه مجموع ضرایب
+                let sum = 0;
+                for (let i = 0; i < 9; i++) {
+                    sum += parseInt(code[i]) * (10 - i);
+                }
+
+                // محاسبه رقم کنترل انتظاری
+                const remainder = sum % 11;
+                const controlDigit = parseInt(code[9]);
+                const expectedDigit = remainder < 2 ? remainder : 11 - remainder;
+
+                return controlDigit === expectedDigit;
+            }
+
+            const form = document.getElementById("login");
+
+            form.addEventListener("submit", (e) => {
+                e.preventDefault(); // جلوگیری از ارسال فرم تا وقتی بررسی کنیم
+
+                // گرفتن مقادیر
+                const meli = document.getElementById("meli");
+                const email = document.getElementById("email");
+                const password = document.getElementById("password");
+                const passwordcom = document.getElementById("passwordcom");
+                const melierror = document.getElementById("melierror");
+                const emailerror = document.getElementById("emailerror");
+                const passerror = document.getElementById("passerror");
+                const passerrorcom = document.getElementById("passerrorcom");
+
+                // پاک‌سازی قبلی
+                meli.classList.remove("error");
+                password.classList.remove("error");
+                meliError.textContent = "";
+                passError.textContent = "";
+
+                let isValid = true;
+
+                // بررسی کدملی
+                if (!validateNationalCode(meli.value)) {
+                    meli.classList.add("error");
+                    meliError.textContent = "شناسه ملی معتبر نیست!";
+                    isValid = false;
+                }
+
+                // بررسی رمز عبور
+                if (password.value.length < 6) {
+                    password.classList.add("error");
+                    passError.textContent = "رمز باید حداقل ۶ کاراکتر باشد.";
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    isValid = true;
+                    form.submit(); // اگر همه چی اوکی بود، فرم ارسال میشه
+                }
+            });
+        </script>
 </body>
 </html>

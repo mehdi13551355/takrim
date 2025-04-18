@@ -128,7 +128,7 @@
             </div>
             <div class="form-group">
                 <label for="password">رمز عبور:</label>
-                <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید"required>
+                <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید" required>
                 <span id="passError" class="error-message"></span>
             </div>
             <button type="submit" class="register-button">ورود</button>
@@ -140,45 +140,72 @@
     </div>
 
     <script>
+        function validateNationalCode(code) {
+            // بررسی طول کد و عددی بودن تمام کاراکترها
+            if (code.length !== 10 || !/^\d{10}$/.test(code)) {
+                return false;
+            }
+
+            // بررسی یکسان نبودن تمام ارقام
+            const allDigitsSame = new Set(code.split('')).size === 1;
+            if (allDigitsSame) {
+                return false;
+            }
+
+            // محاسبه مجموع ضرایب
+            let sum = 0;
+            for (let i = 0; i < 9; i++) {
+                sum += parseInt(code[i]) * (10 - i);
+            }
+
+            // محاسبه رقم کنترل انتظاری
+            const remainder = sum % 11;
+            const controlDigit = parseInt(code[9]);
+            const expectedDigit = remainder < 2 ? remainder : 11 - remainder;
+
+            return controlDigit === expectedDigit;
+        }
+
+
         const form = document.getElementById("login");
-      
+
         form.addEventListener("submit", (e) => {
-          e.preventDefault(); // جلوگیری از ارسال فرم تا وقتی بررسی کنیم
-      
-          // گرفتن مقادیر
-          const meli = document.getElementById("meli");
-          const password = document.getElementById("password");
-          const meliError = document.getElementById("meliError");
-          const passError = document.getElementById("passError");
-      
-          // پاک‌سازی قبلی
-          meli.classList.remove("error");
-          password.classList.remove("error");
-          meliError.textContent = "";
-          passError.textContent = "";
-      
-          let isValid = true;
-      
-          // بررسی ایمیل
-          if (meli.value.length ==10) {
-            meli.classList.add("error");
-            meliError.textContent = "شناسه ملی معتبر نیست!";
-            isValid = false;
-          }
-      
-          // بررسی رمز عبور
-          if (password.value.length < 6) {
-            password.classList.add("error");
-            passError.textContent = "رمز باید حداقل ۶ کاراکتر باشد.";
-            isValid = false;
-          }
-      
-          if (isValid) {
-            isValid = true;
-            form.submit(); // اگر همه چی اوکی بود، فرم ارسال میشه
-          }
+            e.preventDefault(); // جلوگیری از ارسال فرم تا وقتی بررسی کنیم
+
+            // گرفتن مقادیر
+            const meli = document.getElementById("meli");
+            const password = document.getElementById("password");
+            const meliError = document.getElementById("meliError");
+            const passError = document.getElementById("passError");
+
+            // پاک‌سازی قبلی
+            meli.classList.remove("error");
+            password.classList.remove("error");
+            meliError.textContent = "";
+            passError.textContent = "";
+
+            let isValid = true;
+
+            // بررسی کدملی
+            if (!validateNationalCode(meli.value)) {
+                meli.classList.add("error");
+                meliError.textContent = "شناسه ملی معتبر نیست!";
+                isValid = false;
+            }
+
+            // بررسی رمز عبور
+            if (password.value.length < 6) {
+                password.classList.add("error");
+                passError.textContent = "رمز باید حداقل ۶ کاراکتر باشد.";
+                isValid = false;
+            }
+
+            if (isValid) {
+                isValid = true;
+                form.submit(); // اگر همه چی اوکی بود، فرم ارسال میشه
+            }
         });
-      </script>
+    </script>
 </body>
 
 </html>
