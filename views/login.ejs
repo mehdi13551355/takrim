@@ -19,16 +19,45 @@
         body {
 
             background: linear-gradient(135deg, #53bac2, #84fab0);
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: grid;
+            grid-template-areas:
+                "header "
+                " main"
+                "footer";
+            align-self: auto;
+            grid-template-rows: 0.2fr 1fr 0.2fr;
+            height: 100vh;
+
+        }
+
+        header {
+            grid-area: header;
+            color: white;
+            background: linear-gradient(135deg, #74b0b4, #84fab0);
+        }
+
+        header h2 {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            direction: rtl;
+        }
+
+        .mid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .register-container {
-            width: 90%;
+            grid-area: main;
+            width: 100%;
             max-width: 400px;
             padding: 20px;
             background: #fff;
@@ -105,6 +134,14 @@
             font-size: 12px;
         }
 
+        footer {
+            grid-area: footer;
+            background: linear-gradient(135deg, #74b0b4, #84fab0);
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
         @media (max-width: 768px) {
             .register-container {
                 padding: 15px;
@@ -118,25 +155,35 @@
 </head>
 
 <body>
-    <div class="register-container">
-        <h2>فرم ورود</h2>
-        <form id="login" action="/login" method="post" autocomplete="off">
-            <div class="form-group">
-                <label for="meli">شناسه ملی:</label>
-                <input type="text" id="meli" placeholder=" شناسه ملی خود را وارد کنید" required>
-                <span id="meliError" class="error-message"></span>
+    <div class="container">
+        <header>
+            <h2>سامانه تکریم ارباب رجوع </h2>
+        </header>
+        <div class="mid">
+            <div class="register-container">
+                <h2>فرم ورود</h2>
+                <form id="login" action="/login" method="post" autocomplete="off">
+                    <div class="form-group">
+                        <label for="meli">شناسه ملی:</label>
+                        <input type="text" id="meli" placeholder=" شناسه ملی خود را وارد کنید" required>
+                        <span id="meliError" class="error-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">رمز عبور:</label>
+                        <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید" required>
+                        <span id="passError" class="error-message"></span>
+                    </div>
+                    <button type="submit" class="register-button">ورود</button>
+                    <div class="register-footer">
+                        <p>حساب کاربری دارید؟ <a href="/register.ejs">ثبت نام </a></p>
+                        <p>رمز عبور را فراموش کردید؟ <a href="#"> بازیابی رمز عبور</a></p>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="password">رمز عبور:</label>
-                <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید" required>
-                <span id="passError" class="error-message"></span>
-            </div>
-            <button type="submit" class="register-button">ورود</button>
-            <div class="register-footer">
-                <p>حساب کاربری دارید؟ <a href="/register.ejs">ثبت نام </a></p>
-                <p>رمز عبور را فراموش کردید؟ <a href="#"> بازیابی رمز عبور</a></p>
-            </div>
-        </form>
+        </div>
+        <footer>
+            <p id="pfoo">تمامی حقوق محفوظ است © 1404</p>
+        </footer>
     </div>
 
     <script>

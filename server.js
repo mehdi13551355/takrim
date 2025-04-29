@@ -27,7 +27,7 @@ app.use(session({
 }));
 
 app.get("/",function(req,res){
-    res.render("vrod");
+    res.render("login");
 });
 
 // صفحه ثبت نام

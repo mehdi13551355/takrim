@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Navbar واکنش‌گرا بدون Bootstrap</title>
+    <style>
+        @font-face {
+            font-family: 'Vazir';
+            src: url('fonts/BYekan.woff2') format('woff2'),
+                url('fonts/BYekan.woff') format('woff');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Vazir;
+        }
+
+        body {
+
+            background: #f0f2f5;
+        }
+
+        nav {
+            width: 100%;
+            background-color: #2c3e50;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover {
+            color: #1abc9c;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .menu {
+                direction: rtl;
+                flex-direction: column;
+                background-color: #34495e;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 30%;
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height 0.4s ease-out;
+            }
+
+            .menu a {
+                padding: 10px;
+                border-top: 1px solid #2c3e50;
+            }
+
+            .menu.show {
+                width: 30%;
+                max-height: 300px;
+                /* ارتفاع دلخواه منو در حالت باز */
+                transition: max-height 0.4s ease-in;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" class="logo">لوگو</a>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="menu" id="menu">
+            <a href="#">خانه</a>
+            <a href="#">درباره ما</a>
+            <a href="#">خدمات</a>
+            <a href="#">تماس با ما</a>
+        </div>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('menu');
+            menu.classList.toggle('show');
+        }
+    </script>
+
+</body>
+
+</html>

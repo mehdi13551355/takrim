@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اسلایدر Slick نمونه</title>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <style>
+        @font-face {
+            font-family: 'Vazir';
+            src: url('fonts/BYekan.woff2') format('woff2'),
+                url('fonts/BYekan.woff') format('woff');
+        }
+
+        * {
+            font-family: "Vazir";
+            direction: rtl;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: white;
+        }
+
+        .slider-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .product-slider {          
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            
+            padding: 20px;
+        }
+        .slide-item {
+            padding: 10px;
+            text-align: center;
+            outline: none;
+        }
+
+        .slide-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .slide-item h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .slide-item .price {
+            color: #e63946;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .slick-prev,
+        .slick-next {
+            width: 40px;
+            height: 40px;
+            /* background-color: rgba(0, 0, 0, 0.5); */
+            /* border-radius: 50%; */
+            /* color: white; */
+        }
+
+        /* تغییرات برای دکمه‌های ناوبری RTL */
+        .slick-prev {
+            right: 50px;
+            left: auto;
+        }
+
+        .slick-next {
+            left: -25px;
+            right: auto;
+        }
+
+        .slick-prev:before,
+        .slick-next:before {
+            color: #b62222;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider-container">
+        <div class="product-slider">
+            <div class="slide-item">
+                <img src="/images/gol5.png" alt="محصول ۱">
+                <h3>محصول شماره ۱</h3>
+                <div class="price">۱,۲۹۰,۰۰۰ تومان</div>
+            </div>
+            <div class="slide-item">
+                <img src="/images/gol4.png" alt="محصول ۲">
+                <h3>محصول شماره ۲</h3>
+                <div class="price">۹۹۰,۰۰۰ تومان</div>
+            </div>
+            <div class="slide-item">
+                <img src="/images/gol1.png" alt="محصول ۳">
+                <h3>محصول شماره ۳</h3>
+                <div class="price">۱,۵۵۰,۰۰۰ تومان</div>
+            </div>
+            <div class="slide-item">
+                <img src="/images/gol2.png" alt="محصول ۴">
+                <h3>محصول شماره ۴</h3>
+                <div class="price">۲,۳۹۰,۰۰۰ تومان</div>
+            </div>
+            <div class="slide-item">
+                <img src="/images/gol3.png" alt="محصول ۵">
+                <h3>محصول شماره ۵</h3>
+                <div class="price">۸۹۰,۰۰۰ تومان</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.product-slider').slick({
+                rtl: true, // برای راست به چپ (RTL)
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+
+</html>
