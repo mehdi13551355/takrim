@@ -47,11 +47,13 @@
             justify-content: center;
             align-items: center;
         }
+
         .mid {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         .register-container {
             grid-area: main;
             width: 100%;
@@ -123,7 +125,18 @@
         }
 
         .error {
-            border: 1px solid red;
+            text-align: center;
+            margin-top: 10px;
+            color: #ad1919;
+        }
+          .blink {
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
         }
 
         .error-message {
@@ -159,31 +172,45 @@
         <div class="mid">
             <div class="register-container">
                 <h2>فرم ثبت‌نام</h2>
-                <form autocomplete="off">
+                <form id="register" action="/register" method="POST" autocomplete="off">
                     <div class="form-group">
-                        <label for="fullname">شناسه ملی:</label>
-                        <input type="text" id="fullname" placeholder=" شناسه ملی خود را وارد کنید">
+                        <label for="codemeli">شناسه ملی:</label>
+                        <input type="text" id="codemeli" name="codemeli" placeholder=" شناسه ملی خود را وارد کنید"
+                            required oninvalid="this.setCustomValidity('لطفاً این فیلد را پر کنید')"
+                            oninput="this.setCustomValidity('')">
                         <span id="melierror" class="error-message"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">ایمیل:</label>
-                        <input type="email" id="email" placeholder="ایمیل خود را وارد کنید" autocomplete="off">
+                        <input type="email" id="email" name="email" placeholder="ایمیل خود را وارد کنید"
+                            autocomplete="off" required oninvalid="this.setCustomValidity('لطفاً این فیلد را پر کنید')"
+                            oninput="this.setCustomValidity('')">
                         <span id="emailerror" class="error-message"></span>
                     </div>
                     <div class="form-group">
-                        <label for="password">رمز عبور:</label>
-                        <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
+                        <label for="passwrd">رمز عبور:</label>
+                        <input type="password" id="passwrd" name="passwrd" placeholder="رمز عبور خود را وارد کنید"
+                            required oninvalid="this.setCustomValidity('لطفاً این فیلد را پر کنید')"
+                            oninput="this.setCustomValidity('')">
                         <span id="passerror" class="error-message"></span>
                     </div>
                     <div class="form-group">
-                        <label for="passwordcom">تکرار رمز عبور:</label>
-                        <input type="password" id="passwordcom" placeholder="تلفن همراه خود را وارد کنید">
+                        <label for="passwrdcom">تکرار رمز عبور:</label>
+                        <input type="password" id="passwrdcom" name="passwrdcom"
+                            placeholder="رمز عبور خود را دوباره وارد کنید" required
+                            oninvalid="this.setCustomValidity('لطفاً این فیلد را پر کنید')"
+                            oninput="this.setCustomValidity('')">
                         <span id="passerrorcom" class="error-message"></span>
                     </div>
                     <button type="submit" class="register-button">ثبت‌نام</button>
-                    <div class="register-footer">
-                        <p>حساب کاربری دارید؟ <a href="/login.ejs">وارد شوید</a></p>
-                    </div>
+                    <% if (error) { %>
+                        <div class="error blink">
+                            <%= error %>
+                        </div>
+                        <% } %>
+                            <div class="register-footer">
+                                <p><a href="/login">وارد شوید</a></p>
+                            </div>
                 </form>
             </div>
         </div>
@@ -218,49 +245,58 @@
             return controlDigit === expectedDigit;
         }
 
-        const form = document.getElementById("login");
+        const form = document.getElementById("register");
 
         form.addEventListener("submit", (e) => {
-            e.preventDefault(); // جلوگیری از ارسال فرم تا وقتی بررسی کنیم
+            e.preventDefault();
 
-            // گرفتن مقادیر
-            const meli = document.getElementById("meli");
+            const codemeli = document.getElementById("codemeli");
             const email = document.getElementById("email");
-            const password = document.getElementById("password");
-            const passwordcom = document.getElementById("passwordcom");
+            const passwrd = document.getElementById("passwrd");
+            const passwrdcom = document.getElementById("passwrdcom");
             const melierror = document.getElementById("melierror");
             const emailerror = document.getElementById("emailerror");
             const passerror = document.getElementById("passerror");
             const passerrorcom = document.getElementById("passerrorcom");
 
-            // پاک‌سازی قبلی
-            meli.classList.remove("error");
-            password.classList.remove("error");
-            meliError.textContent = "";
-            passError.textContent = "";
+            // پاکسازی پیام‌ها
+            melierror.textContent = "";
+            emailerror.textContent = "";
+            passerror.textContent = "";
+            passerrorcom.textContent = "";
 
-            let isValid = true;
+            let valid = true;
 
-            // بررسی کدملی
-            if (!validateNationalCode(meli.value)) {
-                meli.classList.add("error");
-                meliError.textContent = "شناسه ملی معتبر نیست!";
-                isValid = false;
+            if (!validateNationalCode(codemeli.value)) {
+                melierror.textContent = "شناسه ملی معتبر نیست!";
+                valid = false;
             }
 
-            // بررسی رمز عبور
-            if (password.value.length < 6) {
-                password.classList.add("error");
-                passError.textContent = "رمز باید حداقل ۶ کاراکتر باشد.";
-                isValid = false;
+            if (passwrd.value.length < 6) {
+                passerror.textContent = "رمز باید حداقل ۶ کاراکتر باشد.";
+                valid = false;
             }
 
-            if (isValid) {
-                isValid = true;
-                form.submit(); // اگر همه چی اوکی بود، فرم ارسال میشه
+            if (passwrd.value !== passwrdcom.value) {
+                passerrorcom.textContent = "رمز دوم با اول منطبق نیست";
+                valid = false;
             }
+
+            if (valid) {
+                form.submit();
+            }
+
+        // if (!validateNationalCode(codemeli.value)) {
+        //     melierror.textContent = "شناسه ملی معتبر نیست!";
+        // } else if (!(passwrd.value === passwrdcom.value)) {
+        //       passerrorcom.textContent = "رمز دوم با اول منطبق نیست";;
+        // } else if (passwrd.value.length < 7) {
+        //     passerror.textContent = "رمز باید حداقل ۶ کاراکتر باشد.";
+        // } else {
+        //     form.submit(); // اگر همه چی اوکی بود، فرم ارسال میشه
+        // }
         });
-    </script>
+   </script>
 </body>
 
 </html>

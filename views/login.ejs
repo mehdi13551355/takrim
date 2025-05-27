@@ -126,14 +126,24 @@
         }
 
         .error {
-            border: 1px solid red;
+            text-align: center;
+            margin-top: 10px;
+            color: #ad1919;
         }
 
         .error-message {
             color: red;
             font-size: 12px;
         }
-
+          .blink {
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
         footer {
             grid-area: footer;
             background: linear-gradient(135deg, #74b0b4, #84fab0);
@@ -162,22 +172,31 @@
         <div class="mid">
             <div class="register-container">
                 <h2>فرم ورود</h2>
-                <form id="login" action="/login" method="post" autocomplete="off">
+                <form id="login" action="/login" method="POST" autocomplete="off">
                     <div class="form-group">
-                        <label for="meli">شناسه ملی:</label>
-                        <input type="text" id="meli" placeholder=" شناسه ملی خود را وارد کنید" required>
+                        <label for="codemeli">شناسه ملی:</label>
+                        <input type="text" id="codemeli" name="codemeli" placeholder=" شناسه ملی خود را وارد کنید" required>
                         <span id="meliError" class="error-message"></span>
                     </div>
                     <div class="form-group">
-                        <label for="password">رمز عبور:</label>
-                        <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید" required>
+                        <label for="passwrd">رمز عبور:</label>
+                        <input type="password" id="passwrd" name="passwrd" placeholder="رمز عبور خود را وارد کنید"
+                            required>
                         <span id="passError" class="error-message"></span>
                     </div>
                     <button type="submit" class="register-button">ورود</button>
-                    <div class="register-footer">
-                        <p>حساب کاربری دارید؟ <a href="/register.ejs">ثبت نام </a></p>
-                        <p>رمز عبور را فراموش کردید؟ <a href="#"> بازیابی رمز عبور</a></p>
-                    </div>
+                    <% if (error) { %>
+                        <div class="error blink">
+                            <%= error %>
+                        </div>
+                        <% } %>
+                            <div class="register-footer">
+                                <p><a href="/register">ثبت نام </a></p>
+                                <p><a href="#"> بازیابی رمز عبور</a></p>
+                            </div>
+                            <div>
+
+                            </div>
                 </form>
             </div>
         </div>
@@ -218,37 +237,31 @@
 
         form.addEventListener("submit", (e) => {
             e.preventDefault(); // جلوگیری از ارسال فرم تا وقتی بررسی کنیم
-
             // گرفتن مقادیر
-            const meli = document.getElementById("meli");
-            const password = document.getElementById("password");
-            const meliError = document.getElementById("meliError");
-            const passError = document.getElementById("passError");
+            const codemeli = document.getElementById("codemeli");
+            const passwrd = document.getElementById("passwrd");
+            const melierror = document.getElementById("meliError");
+            const passerror = document.getElementById("passError");
 
             // پاک‌سازی قبلی
-            meli.classList.remove("error");
-            password.classList.remove("error");
-            meliError.textContent = "";
-            passError.textContent = "";
+            melierror.textContent = "";
+            passerror.textContent = "";
 
             let isValid = true;
 
             // بررسی کدملی
-            if (!validateNationalCode(meli.value)) {
-                meli.classList.add("error");
-                meliError.textContent = "شناسه ملی معتبر نیست!";
+            if (!validateNationalCode(codemeli.value)) {
+                melierror.textContent = "شناسه ملی معتبر نیست!";
                 isValid = false;
             }
 
             // بررسی رمز عبور
-            if (password.value.length < 6) {
-                password.classList.add("error");
-                passError.textContent = "رمز باید حداقل ۶ کاراکتر باشد.";
+            if (passwrd.value.length < 6) {
+                passerror.textContent = "رمز باید حداقل ۶ کاراکتر باشد.";
                 isValid = false;
             }
 
             if (isValid) {
-                isValid = true;
                 form.submit(); // اگر همه چی اوکی بود، فرم ارسال میشه
             }
         });
