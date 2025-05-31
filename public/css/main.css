@@ -25,7 +25,9 @@
 }
 
 nav {
+
     grid-area: header;
+    position: relative;
     border-radius: 15px;
     width: 100%;
     background-color: #3f8683;
@@ -33,7 +35,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+
 }
 
 .logo {
@@ -46,6 +48,7 @@ nav {
 .menu {
     display: flex;
     gap: 15px;
+
 }
 
 .menu a {
@@ -93,18 +96,19 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .menu {
-        border-radius: 15px;
+    .menu {     
+        position: absolute; /* تغییر از relative به absolute */
+        top: 70px;           /* پایین nav */
+        left: 0;
+        width: 100%;         /* عرض کامل */
+        background-color: #34495e;
         direction: rtl;
         flex-direction: column;
-        background-color: #34495e;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 50%;
         overflow: hidden;
         max-height: 0;
         transition: max-height 0.4s ease-out;
+        z-index: 1000;       /* روی سایر عناصر قرار گیرد */
+        border-radius: 0 0 10px 10px;
     }
 
     .menu a:hover {
@@ -122,9 +126,7 @@ footer {
     }
 
     .menu.show {
-        width: 50%;
         max-height: 250px;
-        /* ارتفاع دلخواه منو در حالت باز */
         transition: max-height 0.4s ease-in;
     }
 
@@ -134,19 +136,30 @@ footer {
 }
 
 .moved {
-    animation: moveRight 2s forwards;
-    transform:  scale(0.8);
+    transform: scale(0.8);
 }
 
-@keyframes moveRight {
-            from {
-                transform: translateX(-30%);
-                
-            }
+.user-info {
+    display: flex;
+    align-items: center;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    border-radius: 8px;
+    margin: 0 10px;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #333;
+    gap: 6px;
+}
 
-            to {
-                 
-                 justify-content: center ;
-            }
-        }
-    
+.user-info .label {
+    font-weight: bold;
+    color: #444;
+}
+
+.user-info .value {
+    color: #007acc;
+    direction: ltr;
+    font-weight: bold;
+}

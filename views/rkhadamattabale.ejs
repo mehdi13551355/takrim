@@ -1,0 +1,39 @@
+
+ <style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+</style>  
+<table border="1">
+    <thead>
+      <tr>
+        <th>شماره خدمت</th>
+        <th>نوع خدمت</th>
+        <th>تاریخ ورود</th>
+        <th>تاریخ اتمام</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% rw.forEach(item => { %>
+        <tr>
+          <td><%= item.shkhadamat %></td>
+            <td><%= item.typekhadamat %></td>
+          <td><%=item.tdatev  %></td>
+          <td><%= item.tdatet %></td>
+         
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+

@@ -17,6 +17,7 @@
         }
 
         body {
+
             background: linear-gradient(135deg, #53bac2, #84fab0);
             margin: 0;
             padding: 0;
@@ -31,7 +32,7 @@
                 " main"
                 "footer";
             align-self: auto;
-            grid-template-rows: 0.1fr 0.8fr 0.1fr;
+            grid-template-rows: 0.2fr 1fr 0.2fr;
             height: 100vh;
 
         }
@@ -58,15 +59,15 @@
             grid-area: main;
             width: 100%;
             max-width: 400px;
-            padding: 10px;
+            padding: 20px;
             background: #fff;
             border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .register-container h2 {
             text-align: center;
-            margin-bottom: 5px;
-            margin-top: 0%;
+            margin-bottom: 20px;
             color: #333;
         }
 
@@ -129,6 +130,11 @@
             margin-top: 10px;
             color: #ad1919;
         }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
           .blink {
             animation: blink 1s step-end infinite;
         }
@@ -138,12 +144,6 @@
                 opacity: 0;
             }
         }
-
-        .error-message {
-            color: red;
-            font-size: 12px;
-        }
-
         footer {
             grid-area: footer;
             background: linear-gradient(135deg, #74b0b4, #84fab0);
@@ -286,17 +286,6 @@
                 form.submit();
             }
 
-        // if (!validateNationalCode(codemeli.value)) {
-        //     melierror.textContent = "شناسه ملی معتبر نیست!";
-        // } else if (!(passwrd.value === passwrdcom.value)) {
-        //       passerrorcom.textContent = "رمز دوم با اول منطبق نیست";;
-        // } else if (passwrd.value.length < 7) {
-        //     passerror.textContent = "رمز باید حداقل ۶ کاراکتر باشد.";
-        // } else {
-        //     form.submit(); // اگر همه چی اوکی بود، فرم ارسال میشه
-        // }
         });
-   </script>
+    </script>
 </body>
-
-</html>

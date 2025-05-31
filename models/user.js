@@ -1,6 +1,6 @@
 const pool = require('../models/db.js');
 
-async function findUserByEmail(codemeli) {
+async function findUserBycodemeli(codemeli) {
   const res = await pool.query('SELECT * FROM users WHERE codemeli = $1', [codemeli]);
   return res.rows[0];
 }
@@ -12,4 +12,14 @@ async function createUser(codemeli,email, hashedPassword) {
   );
 }
 
-module.exports = { findUserByEmail, createUser };
+async function findUserByshkhadmat(rkhadamat,codemeli) {
+  const res = await pool.query('SELECT * FROM rkhadamat WHERE shkhadamat = $1 AND codemeli = $2',
+  [rkhadamat, codemeli]
+);
+
+  return res.rows;
+}
+
+
+
+module.exports = { findUserBycodemeli, createUser,findUserByshkhadmat};

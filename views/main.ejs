@@ -5,21 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>سامانه</title>
-
-      <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 
 <body>
     <div class="container">
         <nav>
             <div href="#" class="logo"> <img src="/images/logo.png" /></div>
-
+            <div class="user-info">
+                <span class="value">
+                    <%= codemeli %>
+                </span>
+                <span class="label">کد ملی فعال</span>
+            </div>
             <div class="menu-icon" id="menuicon" onclick="toggleMenu()">
                 <img src="/images/hmm.png" />
             </div>
             <div class="menu" id="menu">
                 <a href="/logout">خروج</a>
-                <a href="#">رهگیری خدمات</a>
+                <a onclick="loadPage('prkhadamat')" style=" cursor: pointer;">رهگیری خدمات</a>
                 <a onclick="loadPage('karshnas')" style=" cursor: pointer;"> ارتباط با کارشناس</a>
                 <a href="#">نوبت گیری حضوری</a>
             </div>
@@ -34,7 +38,7 @@
             <p id="pfoo">تمامی حقوق محفوظ است © 1404</p>
         </footer>
     </div>
-<script src="/js/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 
 </html>
