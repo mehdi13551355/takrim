@@ -56,7 +56,9 @@ function loadPage(page,shkhadamat) {
         .catch(err => {
             document.getElementById("content").innerHTML = `<p style="color:blue;">خطا: ${err.message}</p>`;
         });
-    if (page == "rkhadamattabale") fetch(`/partial/${page}?id=${encodeURIComponent(shkhadamat)}`)
+
+        
+        if (page == "prkhadamattabale") fetch(`/partial/${page}?id=${encodeURIComponent(shkhadamat)}`)
         .then(res => {
             if (!res.ok) throw new Error("صفحه پیدا نشد");
             return res.text();
@@ -67,6 +69,8 @@ function loadPage(page,shkhadamat) {
         .catch(err => {
             document.getElementById("content").innerHTML = `<p style="color:blue;">خطا: ${err.message}</p>`;
         });
+
+
          if (page == "karshnas") fetch(`/partial/${page}`)
         .then(res => {
             if (!res.ok) throw new Error("صفحه پیدا نشد");

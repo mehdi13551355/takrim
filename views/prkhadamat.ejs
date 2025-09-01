@@ -122,7 +122,7 @@
                 <input type="text" id="shkhadamat" placeholder=" شناسه رهگیری خود را وارد کنید" required
                     oninvalid="this.setCustomValidity('لطفاً این فیلد را پر کنید')"
                     oninput="this.setCustomValidity('')">
-                <button onclick="loadPage('rkhadamattabale', document.getElementById('shkhadamat').value)" class="srch-button">جستجوی لیست خدمات</button>
+                <button onclick="loadPage('prkhadamattabale', document.getElementById('shkhadamat').value)" class="srch-button">جستجوی لیست خدمات</button>
                 <% if (error) { %>
                     <div class="error blink">
                         <%= error %>

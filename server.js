@@ -68,18 +68,12 @@ app.get('/partial/:page', async (req, res) => {
     res.render(page, { error: '' });
   if (page == "prkhadamat")
     res.render(page, { error: '' });
-  if (page == "rkhadamattabale") {
-    console.log(req.session.codemeliid);
-    console.log(req.query.id);
+  if (page == "prkhadamattabale") {
     const rw = await findUserByshkhadmat(req.query.id, req.session.codemeliid)
     if (rw)
     {
-      console.log(rw[0]);
-      res.render(page, {rw:rw});//{shkhadanmat:rw.shkhadanmat,tdatev: rw.tdatev,tdatet: rw.tdatet,typekhadamat:rw.typekhadamat });
+      res.render(page, {rw:rw});
     }
-      else
-        res.render(page, { error: 'شناسه رهگیری یافت نشد' });
-   
   }
 });
 
